@@ -22,7 +22,7 @@ export const FilmCardScreen = ({route, navigation}) => {
       .then(item => {
         setFilm(item.data);
       })
-      .catch((e) => {
+      .catch(e => {
         setError(true);
       })
       .finally(() => {
@@ -50,8 +50,10 @@ export const FilmCardScreen = ({route, navigation}) => {
         <ScrollView style={{paddingHorizontal: 20}}>
           <Text style={styles.cardTitle}>{Title}</Text>
           <Text style={styles.cardTextContainer}>
-            <Text>{`${Year}, `}</Text>
-            <Text>{changeTime(Runtime)}</Text>
+            <Text>{`${Year !== 'N/A' ? Year : 'Год не указан'}, `}</Text>
+            <Text>
+              {Runtime !== 'N/A' ? changeTime(Runtime) : 'Время не указано'}
+            </Text>
           </Text>
           <View style={styles.cardPoster}>
             <Image
@@ -60,20 +62,28 @@ export const FilmCardScreen = ({route, navigation}) => {
             />
           </View>
           <View style={styles.cardPlot}>
-            <Text style={styles.cardPlotText}>{Plot}</Text>
+            <Text style={styles.cardPlotText}>
+              {Plot !== 'N/A' ? Plot : 'Описание не указано'}
+            </Text>
           </View>
           <View style={styles.cardPeople}>
             <Text style={styles.cardPeopleTitle}>
               {`Director: `}
-              <Text style={styles.cardPeopleText}>{Director}</Text>
+              <Text style={styles.cardPeopleText}>
+                {Director !== 'N/A' ? Director : 'Директор не указан'}
+              </Text>
             </Text>
             <Text style={styles.cardPeopleTitle}>
               {`Writer: `}
-              <Text style={styles.cardPeopleText}>{Writer}</Text>
+              <Text style={styles.cardPeopleText}>
+                {Writer !== 'N/A' ? Writer : 'Писатель не указан'}
+              </Text>
             </Text>
             <Text style={styles.cardPeopleTitle}>
               {`Actors: `}
-              <Text style={styles.cardPeopleText}>{Actors}</Text>
+              <Text style={styles.cardPeopleText}>
+                {Actors !== 'N/A' ? Actors : 'Актеры не указаны'}
+              </Text>
             </Text>
           </View>
         </ScrollView>
@@ -123,9 +133,9 @@ const styles = StyleSheet.create({
   errorContainer: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   errorText: {
-    color: 'red'
+    color: 'red',
   },
 });
