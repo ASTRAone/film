@@ -8,6 +8,7 @@ import {
   RefreshControl,
   Image,
   TextInput,
+  LayoutAnimation,
 } from 'react-native';
 
 import {fetchFilms} from '../actions/film.actions';
@@ -17,25 +18,39 @@ import {useNavigation} from '@react-navigation/native';
 
 import {UnexpectedError} from '../components/UnxpectedError';
 
-// Сделать норм импорты
+// if (Platform.OS === 'android') {
+//   if (UIManager.setLayoutAnimationEnabledExperimental) {
+//     UIManager.setLayoutAnimationEnabledExperimental(true);
+//   }
+// }
+
+// onPress={() => {
+//   LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+//   setOpen(oldOpened => !oldOpened);
+// }}
+
 const FilmItem = ({Poster, Title, Year, imdbID}) => {
   const navigation = useNavigation();
   const defaultPoster =
     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-pziTMjXmjGVZa15YXUXcnPOo0p8FKxxu6aefFt-AD2DJnwH8DsG6VmSFht6zWL3Uzbw&usqp=CAU';
 
   const poster = Poster !== 'N/A' ? Poster : defaultPoster;
+
+  const [open, setOpen] = useState(false);
+
   return (
     <TouchableOpacity
       onPress={() => navigation.navigate('FilmCardScreen', {id: imdbID})}
       style={styles.containerItem}>
-      <Image source={{uri: poster}} style={{width: 100, height: 150}} />
-      <View style={styles.contentItem}>
-        <Text style={styles.itemTitle}>{Title}</Text>
-        <Text style={styles.itemText}>
-          {`Release date: `}
-          <Text style={{color: 'gray'}}>{Year}</Text>
-        </Text>
-      </View>
+
+        <Image source={{uri: poster}} style={{width: 100, height: 150}} />
+        <View style={styles.contentItem}>
+          <Text style={styles.itemTitle}>{Title}</Text>
+          <Text style={styles.itemText}>
+            {`Release date: `}
+            <Text style={{color: 'gray'}}>{Year}</Text>
+          </Text>
+        </View>
     </TouchableOpacity>
   );
 };
